@@ -1,0 +1,40 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}Dinner Platters{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+<h1>{{platter.name}}</h1>
+
+{% if platter.dp_image %}
+<img class="product-image-dp" src="{{platter.dp_image.url}}" alt="{{platter.name}}">
+{% endif %}
+
+<form action="{% url 'platterHandler' %}" method="POST">
+    {% csrf_token %}
+<select name="size" class="platter-size custom-select form-control w-25 set-margin-top" id="size">
+    {% for size in sizes %}
+        <option value="{{size.size}}">{{size.size}}</option>
+    {% endfor %}
+</select>
+
+<input name="id" id="platter-id" value="{{platter.id}}" hidden>
+
+<h1>$<span id="price"></span></h1>
+
+<input class="btn btn-primary" type="submit" id="submit" value="Add to Cart">
+</form>
+</div>
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+        var dp_id = "{{platter.id}}"; // get id of current sub
+        var homepage = "{% url 'error' %}";
+    </script>
+
+    <script src="{% static 'orders/dinnerplatters.js' %}"></script>
+
+{% endblock %}

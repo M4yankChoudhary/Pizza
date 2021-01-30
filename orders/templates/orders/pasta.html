@@ -1,0 +1,40 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}Subs{% endblock %}
+
+{% block body %}
+
+<div class="container">
+{% if pasta.pasta_image %}
+<img class="product-image" src="{{pasta.pasta_image.url}}" alt="{{pasta.name}}">
+{% endif %}
+
+<h1 style="text-align: center;">{{pasta.name}}</h1>
+<form action="{% url 'pastaHandler' %}" method="POST">
+    {% csrf_token %}
+<input name="id" id="pasta-id" value="{{pasta.id}}" hidden>
+
+<div class="text-center">
+<h1>$<span id="price"></span></h1>
+
+
+<input class="btn btn-primary" type="submit" id="submit" value="Add to Cart">
+</div>
+
+</form>
+</div>
+
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+        var pasta_id = "{{pasta.id}}"; // get id of current sub
+        var homepage = "{% url 'error' %}";
+    </script>
+
+    <script src="{% static 'orders/pasta.js' %}"></script>
+
+{% endblock %}

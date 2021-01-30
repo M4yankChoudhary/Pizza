@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <title>{% block title %}{% endblock %}</title>
+        {% block css %}{% endblock %}
+        {% load static %}
+        <link href="{% static 'orders/styles.css' %}" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}"><i class='fas fa-pizza-slice'></i> Pizza & Subs <i class="fas fa-hotdog"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'myOrders' %}"> My Orders </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{cart|length}})
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <p class="list-items">
+                    {% for item in cart %}
+                    {{forloop.counter}}. {{item.item_name}} ${{item.price}} <a href="{% url 'removeItem' item.id %}"> <i class="fas fa-times" style="color: red;"> Remove</i></a><br>
+                    {% endfor %}
+                    </p>
+                    <ul>
+                    <div class="dropdown-divider"></div>
+                    {% if cart|length > 0 %}
+                    <li class="dropdown-item">Total ${{total}}</li>
+                    
+                    <div class="dropdown-divider"></div>
+                    <li class="dropdown-item"><a class="btn btn-primary" href="{% url 'proceed' %}">Proceed to Buy</a> <a class="btn btn-primary" href="{% url 'clearcart' %}">Clear Cart</a> </li>
+                    </ul>
+                    {% else %}
+                    <li>Empty</li>
+                    {% endif %}
+                  </div>
+                </li>
+              </ul>
+              {% endif %}
+              {% if request.user.is_authenticated %}
+                <a class="nav-link btn btn-danger" style="color: aliceblue;" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">Log out, {{request.user.username}}</a>
+              {% endif %}
+            
+            </div>
+          </nav>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

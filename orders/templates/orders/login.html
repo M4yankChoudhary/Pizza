@@ -1,0 +1,35 @@
+{% extends "orders/base.html" %}
+
+{% block body %}
+<div class="set-width container py-5 text-center w-25">
+
+    <h1>Login</h1>
+
+{% if message %}
+    <div>
+        {{ message }}
+    </div>
+{% endif %}
+
+<form action="{% url 'login' %}" autocomplete="off" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="Inputusername">Username</label>
+      <input name="username" type="text" class="form-control" id="Inputusername" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+
+
+<div class="py-2">
+<a class="btn btn-outline-info" href="{% url 'registration' %}">Sign up</a>
+</div>
+</div>
+
+{% endblock %}
+

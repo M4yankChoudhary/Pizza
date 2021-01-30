@@ -1,0 +1,65 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ pizza.name }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+{% if pizza.image %}
+<img class="product-image" src="{{pizza.image.url}}" alt="{{pizza.name}}">
+{% endif %}
+
+{% for price in pizzaprice %}
+    <h3 id="price">${{price.price}}</h3>
+    {% endfor %}
+
+    <form action="{% url 'pizzaHandler' %}" method="POST">
+        {% csrf_token %}
+    <h1 id="pizza-name">{{pizza.name}}</h1>
+    <input name="id" type="text" value="{{pizza.id}}" hidden>
+    
+    <!-- Pizza Sizes -->
+    <select name="size" class="pizza-values custom-select w-25 set-margin-top"; id="size">
+        {% for size in pizzasizes %}
+            <option value="{{size.size}}">{{size.size}}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Pizza Toppings -->
+    <select name="topping" class="pizza-values custom-select w-50 set-margin-top" id="topping">
+        {% for item in pizzatoppings %}
+            <option value="{{item.id}}" data-number="{{ item.number_of_toppings }}" data-name="{{item.topping_name}}">{{item.topping_name}}</option>
+        {% endfor %}
+    </select>
+
+    <secion class="topping-section set-margin-top" hidden>
+    <h1>Add Toppings</h1>
+    <!--Toppings-->
+    <select class="addtopping custom-select form-control w-25">
+    {% for topping in toppings%}
+        <option value="{{ topping }}">{{topping}}</option>
+    {% endfor %}
+    </select>
+    <input class="w-100 set-margin-top" type="text" id="user-toppings" name="toppings" value="" placeholder="Toppings" readonly>
+    <br>
+    <button class="btn btn-success set-margin-top" type="button" id="add">Add</button>
+    </secion>
+
+    <br>
+    <input class="btn btn-primary set-margin-top" value="Add to Cart" type="submit">
+</form>
+
+</div>
+
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+        var pizza_id = "{{pizza.id}}"; // get id of current pizza
+    </script>
+
+    <script src="{% static 'orders/pizza.js' %}"></script>
+{% endblock %}

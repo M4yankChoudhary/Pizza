@@ -1,0 +1,11 @@
+{% extends "orders/base.html" %}
+
+{% block body %}
+
+<div class="container text-center py-5">
+<h1> Thank You for Ordering. </h1>
+<h5>Your order will be prepared soon.</h5>
+
+<h5> You can check you status here -> <a href="{% url 'myOrders' %}">Check Status</a></h5>
+</div>
+{% endblock %}

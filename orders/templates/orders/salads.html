@@ -1,0 +1,40 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}Subs{% endblock %}
+
+{% block body %}
+<div class="container">
+{% if salad.salad_image %}
+<img class="product-image-salad" src="{{salad.salad_image.url}}" alt="{{salad.name}}">
+{% endif %}
+
+<form action="{% url 'saladhandler' %}" method="POST">
+    {% csrf_token %}
+<input name="id" id="salad-id" value="{{salad.id}}" hidden>
+
+<div class="text-center">
+
+    <h1>{{salad.name}}</h1>
+
+<h1>$<span id="price"></span></h1>
+
+<input class="btn btn-primary" type="submit" id="submit" value="Add to Cart">
+</div>
+</form>
+
+</div>
+
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+        var salad_id = "{{salad.id}}"; // get id of current sub
+        var homepage = "{% url 'error' %}";
+    </script>
+
+    <script src="{% static 'orders/salad.js' %}"></script>
+
+{% endblock %}

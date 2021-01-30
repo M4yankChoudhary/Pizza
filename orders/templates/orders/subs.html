@@ -1,0 +1,58 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}Subs{% endblock %}
+
+{% block body %}
+
+<h1>{{sub.name}}</h1>
+
+<div class="container">
+
+{% if sub.sub_image %}
+<img class="product-image" src="{{sub.sub_image.url}}" alt="{{sub.name}}">
+{% endif %}
+
+<br>
+
+<h1 class="set-margin-top" id="empty-message">$<span id="price"></span></h1>
+
+<select name="size" class="sub-size custom-select form-control w-25" id="size">
+    {% for size in sizes %}
+        <option value="{{size.size}}">{{size.size}}</option>
+    {% endfor %}
+</select>
+
+<input name="id" id="sub-id" value="{{sub.id}}" hidden>
+
+<select class="custom-select form-control w-25" name="addon" id="addon">
+        <option value="">--------</option>
+    {% for addon in addons %}
+        <option value="{{addon.price}}" data-name="{{addon.name}}">{{addon.name}} +${{addon.price}}</option>
+    {% endfor %}
+</select>
+
+<br>
+
+<input class="set-margin-top" type="text" id="selected-add-ons" name="selected-add-ons" value="" placeholder="Add-Ons" readonly>
+
+<button class="btn btn-success" type="button" id="add-item">ADD</button> <br><br>
+
+
+<input class="btn btn-primary" type="submit" id="submit" value="Add to Cart">
+
+</div>
+
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+        var sub_id = "{{sub.id}}"; // get id of current sub
+        var homepage = "{% url 'error' %}";
+    </script>
+
+    <script src="{% static 'orders/subs.js' %}"></script>
+
+{% endblock %}

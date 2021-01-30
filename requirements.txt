@@ -1,0 +1,4 @@
+Django==3.0.0
+pillow
+Cactus==3.3.3
+Python

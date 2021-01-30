@@ -1,0 +1,49 @@
+.dropdown-item {
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .dropdown-divider {
+    margin: 1.5rem;
+  }
+
+  ul {
+    text-decoration-style: none;
+  }
+  .list-items {
+
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: ABeeZee;          
+  }
+
+  .product-image {
+    max-width: 70%;
+    margin-left: 20%;
+  }
+  .product-image-salad {
+    max-width: 70%;
+    min-width: 70%;
+    margin-left: 15%;
+  }
+
+  .product-image-dp {
+    max-width: 70%;
+    margin-left: auto;
+  }
+
+  .set-margin-top {
+    margin-top: 10px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    ol ol, ol ul, ul ol, ul ul {
+    font-size: small;
+  }
+  .product-image {
+    margin-left: 10%;
+  }
+  .set-width {
+    width: 100% !important;
+  }
+  }

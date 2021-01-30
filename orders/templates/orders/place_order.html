@@ -1,0 +1,41 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %}Place order{% endblock %}
+
+{% block body %}
+
+<div class="container text-center">
+
+    <h1 style="background-color: lightblue;">Order Summary</h1>
+
+{% if request.user.is_authenticated %}
+<ul style="list-style-type: none;">
+    {% for item in items %}
+    <li class="py-2">{{forloop.counter}}. {{item.item_name}} ${{item.price}} </li>
+    {% endfor %}
+</ul>
+
+<div class="cart-items" hidden>
+    {% for item in items %}
+    {{forloop.counter}}. {{item.item_name}}
+    {% endfor %}
+</div>
+
+
+<h1 style="background-color: lightblue;"> Order Total ${{total}}</h1>
+<a class="btn btn-primary" id="place-order" href="{% url 'placeOrder' %}">Place Order</a> </button>
+{% endif %}
+
+</div>
+
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var csrftoken = '{{ csrf_token }}'; // pass csrf_token to the external javascript file
+    var homepage = "{% url 'error' %}";
+</script>
+<script src="{% static 'orders/placeorder.js' %}"></script>
+
+{% endblock %}

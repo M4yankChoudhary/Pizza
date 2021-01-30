@@ -1,0 +1,117 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block title %} Menu {% endblock %}
+
+{% block css %}
+<style>
+
+.jumbotron {
+    background-image:url(static/orders/images/pizza_and_subs.png);
+    background-repeat: no-repeat; background-size: cover;
+}
+
+.jumbotron h1 {
+    color: white;
+    background: transparent;
+    text-shadow: 1px 0px 1px rgb(255, 255, 255), 0px 1px 1px whitesmoke, 2px 1px 1px red, 1px 2px 1px black, 3px 2px 1px green, 2px 3px 1px red, 4px 3px 1px red, 3px 4px 1px blue, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+    color: white;
+    background: transparent;
+    text-align: center;
+}
+
+.jumbotron p {
+    color: white;
+    background: transparent;
+    text-shadow: 1px 0px 1px rgb(255, 255, 255), 0px 1px 1px whitesmoke, 2px 1px 1px red, 1px 2px 1px black, 3px 2px 1px green, 2px 3px 1px red, 4px 3px 1px red, 3px 4px 1px blue, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+    color: white;
+    background: transparent;
+    text-align: center;
+}
+
+.card-body {
+    color: white;
+    background-color: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="jumbotron">
+      <h1><i class='fas fa-pizza-slice'></i> Pizza & Subs <i class="fas fa-hotdog"></i></h1>      
+      <p>Life is short eat better</p>
+    </div>
+    </div>
+
+<div class="card-deck">
+    <div class="card">
+      <img class="card-img-top" src="{% static 'orders/images/pizza-image.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+      <h5 class="card-title">Pizza</h5>
+        <ul>
+            {% for pizza in pizzas %}
+            <li><a href="{% url 'pizza' pizza.id %}">{{pizza}}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+        <div class="card">
+          <img class="card-img-top" src="{% static 'orders/images/sub-image.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Subs</h5>
+            <ul>
+                {% for sub in subs %}
+                <li><a href="{% url 'subs' sub.id%}">{{sub}}</a></li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="{% static 'orders/images/pasta.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Pasta</h5>
+              <ul>
+                {% for pasta in pastas %}
+                <li><a href="{% url 'pasta' pasta.id %}">{{pasta.name}}</a></li>
+                {% endfor %}
+            </ul>
+            </div>
+          </div>
+
+        <div class="card">
+          <img class="card-img-top" src="{% static 'orders/images/salad.jpg' %}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Salads</h5>
+            <ul>
+                {% for salad in salads %}
+                <li><a href="{% url 'salad' salad.id %}">{{salad.name}}</a></li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="{% static 'orders/images/dinnerplatters.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+            <h5 class="card-title">Dinner Platters</h5>
+            <ul>
+                {% for plat in platters %}
+                <li><a href="{% url 'dinner_platters' plat.id %}">{{plat.name}}</a></li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+
+    <!-- end card deck -->
+</div>
+    
+{% endblock %}

@@ -1,0 +1,8 @@
+ 
+/.build
+
+**/*.pyc
+*-env/
+./env
+env
+./build
